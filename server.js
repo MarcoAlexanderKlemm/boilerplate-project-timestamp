@@ -24,7 +24,17 @@ app.get("/api/hello", function (req, res) {
   res.json({greeting: 'hello API'});
 });
 
-
+app.get("/api/timestamp/:date_string?", function(req, res){
+  if(req.params.date_string){
+    var date = new Date(req.params.date_string);
+  }
+  else {
+    var date = new Date();
+  }
+  var unix = date.getTime();
+  var utc = date.toUTCString();
+  res.json({"unix": unix, "utc": utc});
+});
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
